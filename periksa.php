@@ -2,12 +2,16 @@
     <?php
     $tgl_periksa = '';
     $catatan = '';
+    $id_pasien ='';
+    $id_dokter ='';
     if (isset($_GET['id'])) {
         $ambil = mysqli_query($mysqli, "SELECT * FROM periksa
             WHERE id='" . $_GET['id'] . "'");
         while ($row = mysqli_fetch_array($ambil)) {
             $tgl_periksa = $row['tgl_periksa'];
             $catatan = $row['catatan'];
+            $id_pasien =$row['id_pasien'];
+            $id_dokter = $row['id_dokter'];
         }
         ?>
             <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
@@ -56,7 +60,7 @@
     </div>
     <div class="mb-2">
         <label for="tgl_periksa" class="form-label">Tanggal Periksa</label>
-        <input type="datetime-local" class="form-control" name="tgl_periksa" id="tgl_periksa" placeholder="Tanggal Periksa" value="<?php echo $tgl_periksa ?>">
+        <input type="date" class="form-control" name="tgl_periksa" id="tgl_periksa" placeholder="Tanggal Periksa" value="<?php echo $tgl_periksa ?>">
     </div>
     <div class="mb-2">
         <label for="catatan" class="form-label">Catatan</label>
@@ -93,22 +97,50 @@
             <td><?=$data['nama_dokter']?></td>
             <td><?=$data['tgl_periksa']?></td>
             <td><?=$data['catatan']?></td>
+            <td>
+            <a class="btn btn-success rounded-pill px-3" 
+            href="index.php?page=periksa&id=<?php echo $data['id'] ?>">
+            Ubah</a>
+            <a class="btn btn-danger rounded-pill px-3" 
+            href="index.php?page=periksa&id=<?php echo $data['id'] ?>&aksi=hapus">Hapus</a>
+        </td>
         </tr>
         <?php endwhile;?>
     </tbody>
     <?php
     if (isset($_POST['simpan'])) {
-            $tambah = mysqli_query($mysqli, "INSERT INTO periksa(id_pasien,id_dokter,tgl_periksa,catatan)
+        if (isset($_POST['id'])) {
+            $ubah = mysqli_query($mysqli, "UPDATE periksa SET 
+                                            id_dokter = '" . $_POST['id_dokter'] . "',
+                                            id_pasien = '" . $_POST['id_pasien'] . "',
+                                            tgl_periksa = '" . $_POST['tgl_periksa'] . "',
+                                            catatan = '" . $_POST['catatan'] . "'
+                                            WHERE
+                                            id = '" . $_POST['id'] . "'");
+            } else {
+                $tambah = mysqli_query($mysqli, "INSERT INTO periksa(id_pasien,id_dokter,tgl_periksa,catatan)
                                             VALUES (
                                                 '" . $_POST['id_pasien'] . "',
                                                 '" . $_POST['id_dokter'] . "',
                                                 '" . $_POST['tgl_periksa'] . "',
                                                 '" . $_POST['catatan'] . "'
                                                 )");
+            }
 
         echo "<script>
                 document.location='index.php?page=periksa';
                 </script>";
     }
+
+    if (isset($_GET['aksi'])) {
+        if ($_GET['aksi'] == 'hapus') {
+            $hapus = mysqli_query($mysqli, "DELETE FROM periksa  WHERE id = '" . $_GET['id'] . "'");
+        }
+
+        echo "<script> 
+                document.location='index.php?page=dokter';
+                </script>";
+    }
     ?>
+    
 </table>
