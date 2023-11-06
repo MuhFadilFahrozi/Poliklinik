@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['login'])){
+    header("location:login.php");
+    exit;
+  }
+
+?>
 <!doctype html>
 <?php
 include('koneksi.php');
@@ -13,7 +22,7 @@ include('koneksi.php');
         <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                Sistem Informasi Poliklinik
+                Sistem Informasi Poliklinik  
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"></button>
@@ -42,10 +51,27 @@ include('koneksi.php');
                             </li>
                         </ul>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item ">
                             <a class="nav-link"
                             href="index.php?page=periksa">
                                 Periksa
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                            href="index.php?page=register">
+                                Register
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                            href="index.php?page=login">
+                                Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                            href="logout.php?">logout
                             </a>
                         </li>
                     </ul>
@@ -54,6 +80,7 @@ include('koneksi.php');
         </nav>
         <main role="main" class="container">
         <?php
+        
             if (isset($_GET['page'])) {
                 ?>
                     <h2><?php echo ucwords($_GET['page']) ?></h2>
@@ -63,6 +90,9 @@ include('koneksi.php');
                 echo "Selamat Datang di Sistem Informasi Poliklinik";
             }
         ?>
+
+                
+                <a href="logout.php"></a>
         </main>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

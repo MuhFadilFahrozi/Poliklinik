@@ -1,4 +1,4 @@
-<form class="form row" method="POST" action="" name="pasienform" onsubmit="return(validate());">>
+<form class="form row" method="POST" action="" name="pasienform" onsubmit="return(validate());">
 <?php
 $nama = '';
 $alamat = '';
