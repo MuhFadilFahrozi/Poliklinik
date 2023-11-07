@@ -1,4 +1,13 @@
+<?php
+
+if (!isset($_SESSION['login'])){
+    header("location:login.php");
+    exit;
+  }
+
+?>
 <form class="form row" method="POST" action="" name="dokterform" onsubmit="return(validate());">
+
 <?php
 $nama = '';
 $alamat = '';

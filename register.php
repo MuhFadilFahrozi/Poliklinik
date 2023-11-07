@@ -1,11 +1,16 @@
 <?php
-
+session_start();
 $hostname = "localhost";
 $user = "root";
 $password = "";
 $db_name ="poliklinik";
 
 $koneksi = mysqli_connect($hostname,$user,$password,$db_name) or die (mysqli_error($koneksi));
+
+if (isset($_SESSION['login'])){
+	header("location:index.php");
+	exit;
+  }
 
 if (isset($_POST['submit'])){
     $username = $_POST['username'];
@@ -14,6 +19,7 @@ if (isset($_POST['submit'])){
 
     $cek_user = mysqli_query($koneksi,"SELECT * FROM user WHERE username = '$username'");
     $cek_login = mysqli_num_rows($cek_user);
+
 
     if ($cek_login > 0) {
       echo" <script>

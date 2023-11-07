@@ -1,12 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['login'])){
-    header("location:login.php");
-    exit;
-  }
-
-?>
 <!doctype html>
 <?php
 include('koneksi.php');
@@ -57,23 +48,34 @@ include('koneksi.php');
                                 Periksa
                             </a>
                         </li>
+                        <?php
+                        session_start();
+
+                        if (!isset($_SESSION['login'])){
+                        ?>
                         <li class="nav-item">
                             <a class="nav-link"
-                            href="index.php?page=register">
+                            href="register.php">
                                 Register
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link"
-                            href="index.php?page=login">
+                            href="login.php">
                                 Login
                             </a>
                         </li>
+                        <?php
+                        } else {
+                        ?>
                         <li class="nav-item">
                             <a class="nav-link"
-                            href="logout.php?">logout
+                            href="logout.php">Logout
                             </a>
                         </li>
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
@@ -84,6 +86,7 @@ include('koneksi.php');
             if (isset($_GET['page'])) {
                 ?>
                     <h2><?php echo ucwords($_GET['page']) ?></h2>
+                    
                 <?php
             include $_GET['page'] . ".php";
             } else {

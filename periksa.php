@@ -1,3 +1,10 @@
+<?php
+
+if (!isset($_SESSION['login'])){
+    header("location:login.php");
+    exit;
+  }
+  ?>
 <form class="form row" method="POST" action="" name="dokterForm" onsubmit="return(validate());">
     <?php
     $tgl_periksa = '';
