@@ -24,13 +24,13 @@ if (isset($_POST['submit'])){
     if ($cek_login > 0) {
       echo" <script>
         alert('Username telag terdaftar');
-        window.location = 'registrasi.php';
+        window.location = 'register.php';
       </script>";
     } else {
       if ($password1 != $password2){
         echo "<script>
         alert('Konfirmasi password tidak sesuai');
-        window.location = 'registrasi.php';
+        window.location = 'register.php';
       </script>";
       } else {
         $password = password_hash($password1,PASSWORD_DEFAULT);
